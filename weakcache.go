@@ -26,10 +26,10 @@ type Stats struct {
 	SingleFlightStats *singleflight.Stats
 }
 
-func NewWeakCache[T any]() WeakCache[T] {
+func NewWeakCache[T any]() *WeakCache[T] {
 	sfGroup := singleflight.NewGroup[T]()
 
-	return WeakCache[T]{
+	return &WeakCache[T]{
 		c:       make(map[string]weak.Pointer[T]),
 		mx:      sync.Mutex{},
 		sfGroup: *sfGroup,
